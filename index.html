@@ -1,0 +1,705 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=2.0, maximum-scale=2.0, minimum-scale=2.0, user-scalable=no">
+  <title>Lv999协议终端</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div id="rotate-hint" class="rotate-hint" aria-hidden="true">
+    <p>请旋转设备至横屏以获得最佳体验</p>
+  </div>
+
+  <div class="audio-settings global-audio-settings" aria-label="音频设置">
+    <label class="audio-toggle">
+      <input type="checkbox" id="toggle-music" checked>
+      <span class="toggle-ui"></span>
+      <span>音乐</span>
+    </label>
+    <label class="audio-toggle">
+      <input type="checkbox" id="toggle-sfx" checked>
+      <span class="toggle-ui"></span>
+      <span>音效</span>
+    </label>
+  </div>
+
+  <main class="app">
+    <!-- Hub -->
+    <section id="view-hub" class="view hub-view view-active" data-view="hub">
+      <canvas id="hub-bg-canvas" class="hub-bg-canvas" aria-hidden="true"></canvas>
+      <div id="hub-clock" class="hub-clock" aria-live="polite">
+        <p id="clock-date" class="clock-date">----年--月--日</p>
+        <p id="clock-time" class="clock-time">00:00:00</p>
+        <p id="clock-festival" class="clock-festival">平日</p>
+      </div>
+      <div class="hub-frame hub-frame-tl" aria-hidden="true"></div>
+      <div class="hub-frame hub-frame-tr" aria-hidden="true"></div>
+      <div class="hub-frame hub-frame-bl" aria-hidden="true"></div>
+      <div class="hub-frame hub-frame-br" aria-hidden="true"></div>
+      <div class="hub-orb hub-orb-1" aria-hidden="true"></div>
+      <div class="hub-orb hub-orb-2" aria-hidden="true"></div>
+
+      <div class="hub-gamepad-deco hub-gamepad-deco-left" aria-hidden="true">
+        <div class="gamepad-shell gamepad-shell-cyan">
+          <span class="gamepad-body-main"></span>
+          <span class="gamepad-grip gamepad-grip-l"></span>
+          <span class="gamepad-grip gamepad-grip-r"></span>
+          <span class="gamepad-dpad"></span>
+          <span class="gamepad-stick gamepad-stick-l"></span>
+          <span class="gamepad-btn gamepad-btn-y"></span>
+          <span class="gamepad-btn gamepad-btn-x"></span>
+          <span class="gamepad-btn gamepad-btn-b"></span>
+          <span class="gamepad-btn gamepad-btn-a"></span>
+        </div>
+        <p class="gamepad-label">PAD // 01</p>
+      </div>
+      <div class="hub-gamepad-deco hub-gamepad-deco-right" aria-hidden="true">
+        <div class="gamepad-shell gamepad-shell-mag">
+          <span class="gamepad-body-main"></span>
+          <span class="gamepad-grip gamepad-grip-l"></span>
+          <span class="gamepad-grip gamepad-grip-r"></span>
+          <span class="gamepad-dpad"></span>
+          <span class="gamepad-stick gamepad-stick-l"></span>
+          <span class="gamepad-btn gamepad-btn-y"></span>
+          <span class="gamepad-btn gamepad-btn-x"></span>
+          <span class="gamepad-btn gamepad-btn-b"></span>
+          <span class="gamepad-btn gamepad-btn-a"></span>
+        </div>
+        <p class="gamepad-label">PAD // 02</p>
+      </div>
+
+      <div class="hub-body">
+        <aside class="hub-panel hub-panel-left" aria-hidden="true">
+          <p class="panel-tag">SYS//01</p>
+          <div class="panel-bar"><span style="width:78%"></span></div>
+          <p class="panel-line">CPU <em>42%</em></p>
+          <p class="panel-line">MEM <em>OK</em></p>
+          <p class="panel-line">NET <em class="blink">LINK</em></p>
+          <div class="panel-hex">⬡ ⬡ ⬡</div>
+        </aside>
+
+        <div class="hub-center">
+          <div class="hub-ring" aria-hidden="true"></div>
+          <header class="hub-header">
+            <p class="hub-tag">// LV999 LINK ONLINE</p>
+            <h1 class="hub-title">
+              <span class="hub-title-pixel">Lv999</span><span class="hub-title-cn">协议终端</span>
+            </h1>
+            <p class="hub-sub">PIXEL PROTOCOL · BUILD 999</p>
+          </header>
+          <button type="button" id="hub-entry" class="hub-portal" tabindex="0">
+            <span class="portal-bracket">[</span>
+            <span class="portal-core">
+              <span class="portal-label">接入游戏矩阵</span>
+              <span class="portal-sub">ACCESS GAME MATRIX</span>
+            </span>
+            <span class="portal-bracket">]</span>
+            <span class="portal-scan" aria-hidden="true"></span>
+          </button>
+          <nav class="hub-media-dock" aria-label="媒体入口">
+            <button type="button" class="hub-media-btn" data-media="music" tabindex="0">
+              <span class="media-icon">♫</span>
+              <span>音乐</span>
+            </button>
+            <button type="button" class="hub-media-btn" data-media="gallery" tabindex="0">
+              <span class="media-icon">▦</span>
+              <span>图片</span>
+            </button>
+            <button type="button" class="hub-media-btn" data-media="video" tabindex="0">
+              <span class="media-icon">▶</span>
+              <span>视频</span>
+            </button>
+          </nav>
+          <p class="hub-hint">WASD 操控 · 触屏虚拟键</p>
+        </div>
+
+        <aside class="hub-panel hub-panel-right" aria-hidden="true">
+          <p class="panel-tag">NODE//07</p>
+          <div class="panel-bar panel-bar-mag"><span style="width:61%"></span></div>
+          <p class="panel-line">SIG <em>STRONG</em></p>
+          <p class="panel-line">ENC <em>AES-256</em></p>
+          <p class="panel-line">LAT <em>12ms</em></p>
+          <div class="panel-matrix">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hub-ticker" aria-hidden="true">
+        <div class="hub-ticker-track">
+          <span>◈ LV999 SNAKE ONLINE</span>
+          <span>▣ LV999 TETRIS READY</span>
+          <span>● PAC-MAN MAZE OPEN</span>
+          <span>✦ STG DANMAKU ARMED</span>
+          <span>◎ PIXEL CHANNEL OPEN</span>
+          <span>◇ AWAITING PILOT</span>
+          <span>◈ LV999 SNAKE ONLINE</span>
+          <span>▣ LV999 TETRIS READY</span>
+        </div>
+      </div>
+      <footer class="hub-footer">
+        <span class="footer-dot"></span>
+        <span>SECURE CHANNEL</span>
+        <span class="sep">|</span>
+        <span>LV999-OS</span>
+      </footer>
+    </section>
+
+    <!-- Media: Music -->
+    <section id="view-media-music" class="view" data-view="media-music">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-hub>&lt; 大厅</button>
+        <h2 class="mode-title">♫ 音乐库</h2>
+      </header>
+      <div id="music-player" class="music-player hidden">
+        <div class="music-player-info">
+          <span id="music-player-title" class="music-player-title">—</span>
+        </div>
+        <div class="music-progress-wrap">
+          <span id="music-time-current" class="music-time">0:00</span>
+          <div class="music-progress-wrap-inner" id="music-progress-wrap">
+            <div class="music-progress-track" id="music-progress-track">
+              <div class="music-progress-fill" id="music-progress-fill"></div>
+            </div>
+          </div>
+          <span id="music-time-total" class="music-time">0:00</span>
+        </div>
+        <div class="music-controls-row">
+          <div class="music-volume-wrap">
+            <span class="music-volume-icon" id="music-volume-icon">♫</span>
+            <input type="range" id="music-volume-slider" class="music-volume-slider" min="0" max="100" value="55" aria-label="音量">
+            <span id="music-volume-value" class="music-volume-value">55%</span>
+          </div>
+        </div>
+      </div>
+      <p class="pick-sub">// 将 mp3 放入 assets/music/ · 运行 sync-media.bat · GitHub Pages 同目录上传</p>
+      <p id="media-music-empty" class="media-empty hidden">暂无音乐 · 请放入 assets/music/ 并运行 sync-media.bat</p>
+      <ul class="media-music-list"></ul>
+    </section>
+
+    <!-- Media: Gallery -->
+    <section id="view-media-gallery" class="view" data-view="media-gallery">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-hub>&lt; 大厅</button>
+        <h2 class="mode-title">▦ 像素图库</h2>
+      </header>
+      <p class="pick-sub">// 图片放入 assets/images/ · sync-media.bat 生成缩略图 · 点击看原图</p>
+      <p id="media-gallery-empty" class="media-empty hidden">暂无图片 · 请按上方说明导入</p>
+      <div class="media-gallery-grid" id="media-gallery-grid"></div>
+    </section>
+
+    <div id="gallery-lightbox" class="gallery-lightbox hidden" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="gallery-lightbox-backdrop"></div>
+      <div class="gallery-lightbox-panel">
+        <button type="button" class="gallery-lightbox-close" aria-label="关闭">&times;</button>
+        <img id="gallery-lightbox-img" class="gallery-lightbox-img" alt="">
+        <p id="gallery-lightbox-cap" class="gallery-lightbox-cap"></p>
+      </div>
+    </div>
+
+    <!-- Media: Video -->
+    <section id="view-media-video" class="view" data-view="media-video">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-hub>&lt; 大厅</button>
+        <h2 class="mode-title">▶ 视频信道</h2>
+        <span id="video-count" class="video-count"></span>
+      </header>
+      <p class="pick-sub">// 视频放入 assets/video/ · sync-media.bat · 建议用 start-server.bat 本地播放</p>
+      <p id="media-video-empty" class="media-empty hidden">暂无视频 · 请按上方说明导入 mp4</p>
+      <div class="media-video-layout">
+        <div class="video-list-wrapper">
+          <ul id="media-video-list" class="media-video-list"></ul>
+        </div>
+        <div class="media-video-wrap">
+          <div id="video-container" class="video-container hidden">
+            <video id="media-video-player" class="media-video-player" loop playsinline preload="auto"></video>
+            <div class="video-player-controls">
+              <button type="button" id="video-play-pause" class="video-btn video-play-pause">▶</button>
+              <span id="video-time-current" class="video-time">0:00</span>
+              <input type="range" id="video-seek-slider" class="video-seek-slider" min="0" max="1000" value="0" step="1" aria-label="视频进度">
+              <span id="video-time-total" class="video-time">0:00</span>
+              <button type="button" id="video-mute" class="video-btn video-mute" aria-label="静音">♫</button>
+              <input type="range" id="video-volume-slider" class="video-volume-slider" min="0" max="100" value="70" aria-label="音量">
+              <span id="video-volume-value" class="video-volume-value">70%</span>
+              <button type="button" id="video-fullscreen" class="video-btn video-fullscreen" aria-label="全屏">⛶</button>
+            </div>
+          </div>
+          <canvas id="media-video-canvas" class="media-video-canvas" width="640" height="360"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game pick -->
+    <section id="view-game-select" class="view" data-view="game-select">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-hub>&lt; 大厅</button>
+        <h2 class="mode-title">选择游戏</h2>
+      </header>
+      <p class="pick-sub">// 选择要接入的协议模块</p>
+      <div class="pick-cards">
+        <article class="pick-card" data-game="snake" tabindex="0">
+          <div class="card-glow"></div>
+          <span class="card-icon">◈</span>
+          <h2>SNAKE</h2>
+          <p class="card-desc">贪吃蛇 · 6 种模式</p>
+          <span class="card-key">[ 进入 ]</span>
+        </article>
+        <article class="pick-card" data-game="tetris" tabindex="0">
+          <div class="card-glow card-glow-mag"></div>
+          <span class="card-icon card-icon-mag">▣</span>
+          <h2>TETRIS</h2>
+          <p class="card-desc">俄罗斯方块 · 矩阵堆叠</p>
+          <span class="card-key card-key-mag">[ 进入 ]</span>
+        </article>
+        <article class="pick-card pick-card-pacman" data-game="pacman" tabindex="0">
+          <div class="card-glow card-glow-yellow"></div>
+          <span class="card-icon card-icon-yellow">●</span>
+          <h2>PAC-MAN</h2>
+          <p class="card-desc">吃豆人 · 5 种模式</p>
+          <span class="card-key card-key-yellow">[ 进入 ]</span>
+        </article>
+        <article class="pick-card pick-card-stg" data-game="shooter" tabindex="0">
+          <div class="card-glow card-glow-green"></div>
+          <span class="card-icon card-icon-green">✦</span>
+          <h2>STG</h2>
+          <p class="card-desc">弹幕射击 · 6 种模式</p>
+          <span class="card-key card-key-green">[ 进入 ]</span>
+        </article>
+        <article class="pick-card pick-card-platform" data-game="platform" tabindex="0">
+          <div class="card-glow card-glow-orange"></div>
+          <span class="card-icon card-icon-orange">▶</span>
+          <h2>RUN</h2>
+          <p class="card-desc">横板闯关 · 5 种模式</p>
+          <span class="card-key card-key-orange">[ 进入 ]</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- Shooter mode select -->
+    <section id="view-shooter-select" class="view" data-view="shooter-select">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-games>&lt; 游戏</button>
+        <h2 class="mode-title">STG // 模式</h2>
+      </header>
+      <div class="mode-cards mode-cards-scroll">
+        <article class="mode-card" data-shooter-mode="classic" tabindex="0">
+          <span class="mode-icon">▣</span>
+          <h3>经典</h3>
+          <p>5 关 + Boss · 节奏适中</p>
+        </article>
+        <article class="mode-card" data-shooter-mode="easy" tabindex="0">
+          <span class="mode-icon">◇</span>
+          <h3>休闲</h3>
+          <p>4 关 · 慢速弹幕</p>
+        </article>
+        <article class="mode-card" data-shooter-mode="hard" tabindex="0">
+          <span class="mode-icon">⚡</span>
+          <h3>炼狱</h3>
+          <p>5 关 · 高密度 Boss 战</p>
+        </article>
+        <article class="mode-card" data-shooter-mode="danmaku" tabindex="0">
+          <span class="mode-icon">✦</span>
+          <h3>弹幕</h3>
+          <p>5 关 · 符卡型 Boss</p>
+        </article>
+        <article class="mode-card" data-shooter-mode="survival" tabindex="0">
+          <span class="mode-icon">∞</span>
+          <h3>生存</h3>
+          <p>8 关 · 逐关加速</p>
+        </article>
+        <article class="mode-card" data-shooter-mode="strike" tabindex="0">
+          <span class="mode-icon">◎</span>
+          <h3>突击</h3>
+          <p>5 关 · 追踪 Boss</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Shooter -->
+    <section id="view-shooter" class="view" data-view="shooter">
+      <div class="game-topbar">
+        <button type="button" class="btn-back" data-back-shooter-mode>&lt; 模式</button>
+        <div class="hud hud-multi">
+          <div>
+            <span class="hud-label">MODE</span>
+            <span id="shooter-mode-label" class="hud-value hud-value-sm">—</span>
+          </div>
+          <div>
+            <span class="hud-label">STG</span>
+            <span id="shooter-stage" class="hud-value hud-value-sm">1/5</span>
+          </div>
+          <div>
+            <span class="hud-label">HP</span>
+            <span id="shooter-lives" class="hud-value">3</span>
+          </div>
+          <div>
+            <span class="hud-label">BOMB</span>
+            <span id="shooter-bombs" class="hud-value">3</span>
+          </div>
+          <div>
+            <span class="hud-label">PWR</span>
+            <span id="shooter-level" class="hud-value">1</span>
+          </div>
+          <div>
+            <span class="hud-label">SCORE</span>
+            <span id="shooter-score" class="hud-value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-play-layout">
+        <div class="canvas-wrap canvas-wrap-shooter">
+          <canvas id="shooter-canvas" width="480" height="360"></canvas>
+          <div id="shooter-game-over" class="game-over-overlay hidden" role="dialog" aria-modal="true">
+            <div class="game-over-panel">
+              <h3 id="shooter-game-over-title" class="game-over-title">GAME OVER</h3>
+              <p id="shooter-game-over-sub" class="game-over-sub hidden"></p>
+              <p class="game-over-score">得分 <span id="shooter-final-score">0</span></p>
+              <div class="game-over-actions">
+                <button type="button" class="btn-go btn-retry" data-go="retry" data-game="shooter">重试</button>
+                <button type="button" class="btn-go btn-exit" data-go="exit" data-game="shooter">退出</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav id="shooter-controls" class="game-side-controls shooter-controls-col hidden" aria-label="弹幕射击虚拟键">
+          <div class="dpad dpad-compact">
+            <button type="button" class="vkey vkey-up" data-action="up">W</button>
+            <button type="button" class="vkey vkey-left" data-action="left">A</button>
+            <button type="button" class="vkey vkey-down" data-action="down">S</button>
+            <button type="button" class="vkey vkey-right" data-action="right">D</button>
+          </div>
+          <button type="button" class="vkey vkey-fire" data-action="fire" aria-label="射击 Space">●</button>
+          <button type="button" class="vkey vkey-bomb" data-action="bomb" aria-label="炸弹 B">✦</button>
+        </nav>
+      </div>
+      <p class="game-hint">WASD 移动 · Space 射击 · B 炸弹 · 拾取 L 升级火力 / B 炸弹 / + 回复</p>
+    </section>
+
+    <!-- Pac-Man mode select -->
+    <section id="view-pacman-select" class="view" data-view="pacman-select">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-games>&lt; 游戏</button>
+        <h2 class="mode-title">PAC-MAN // 模式</h2>
+      </header>
+      <div class="mode-cards mode-cards-scroll">
+        <article class="mode-card" data-pacman-mode="classic" tabindex="0">
+          <span class="mode-icon">●</span>
+          <h3>经典</h3>
+          <p>3 命 · 4 幽灵 · 标准节奏</p>
+        </article>
+        <article class="mode-card" data-pacman-mode="turbo" tabindex="0">
+          <span class="mode-icon">⚡</span>
+          <h3>极速</h3>
+          <p>高速移动 · 幽灵更聪明</p>
+        </article>
+        <article class="mode-card" data-pacman-mode="zen" tabindex="0">
+          <span class="mode-icon">◇</span>
+          <h3>休闲</h3>
+          <p>5 命 · 4 幽灵 · 慢速缓行</p>
+        </article>
+        <article class="mode-card" data-pacman-mode="hard" tabindex="0">
+          <span class="mode-icon">✦</span>
+          <h3>炼狱</h3>
+          <p>2 命 · 短能量豆 · 高智商追猎</p>
+        </article>
+        <article class="mode-card" data-pacman-mode="marathon" tabindex="0">
+          <span class="mode-icon">∞</span>
+          <h3>马拉松</h3>
+          <p>无尽关卡 · 逐关加速挑战</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Snake mode select -->
+    <section id="view-snake-select" class="view" data-view="snake-select">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-games>&lt; 游戏</button>
+        <h2 class="mode-title">SNAKE // 模式</h2>
+      </header>
+      <div class="mode-cards mode-cards-scroll">
+        <article class="mode-card" data-snake-mode="bounded" tabindex="0">
+          <span class="mode-icon">▢</span>
+          <h3>有边界</h3>
+          <p>撞墙即结束 · 经典模式</p>
+        </article>
+        <article class="mode-card" data-snake-mode="wrap" tabindex="0">
+          <span class="mode-icon">∞</span>
+          <h3>无边界</h3>
+          <p>穿墙穿梭 · 仅撞自身失败</p>
+        </article>
+        <article class="mode-card" data-snake-mode="turbo" tabindex="0">
+          <span class="mode-icon">⚡</span>
+          <h3>极速</h3>
+          <p>高速移动 · 更快加速</p>
+        </article>
+        <article class="mode-card" data-snake-mode="zen" tabindex="0">
+          <span class="mode-icon">◇</span>
+          <h3>休闲</h3>
+          <p>穿墙缓速 · 匀速不加速</p>
+        </article>
+        <article class="mode-card" data-snake-mode="obstacle" tabindex="0">
+          <span class="mode-icon">✦</span>
+          <h3>障碍</h3>
+          <p>场内障碍 · 撞障碍失败</p>
+        </article>
+        <article class="mode-card" data-snake-mode="marathon" tabindex="0">
+          <span class="mode-icon">◎</span>
+          <h3>马拉松</h3>
+          <p>大地图 · 持续加速挑战</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Snake -->
+    <section id="view-snake" class="view" data-view="snake">
+      <div class="game-topbar">
+        <button type="button" class="btn-back" data-back-mode>&lt; 模式</button>
+        <div class="hud hud-multi">
+          <div>
+            <span class="hud-label">MODE</span>
+            <span id="snake-mode-label" class="hud-value hud-value-sm">—</span>
+          </div>
+          <div>
+            <span class="hud-label">SCORE</span>
+            <span id="snake-score" class="hud-value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-play-layout">
+        <div class="canvas-wrap canvas-wrap-snake">
+          <canvas id="snake-canvas" width="400" height="400"></canvas>
+          <div id="snake-game-over" class="game-over-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="snake-go-title">
+            <div class="game-over-panel">
+              <h3 id="snake-go-title" class="game-over-title">GAME OVER</h3>
+              <p class="game-over-score">得分 <span id="snake-final-score">0</span></p>
+              <div class="game-over-actions">
+                <button type="button" class="btn-go btn-retry" data-go="retry" data-game="snake">重试</button>
+                <button type="button" class="btn-go btn-exit" data-go="exit" data-game="snake">退出</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav id="snake-controls" class="game-side-controls hidden" aria-label="贪吃蛇虚拟方向键">
+          <div class="dpad dpad-compact">
+            <button type="button" class="vkey vkey-up" data-action="up" aria-label="上 W">W</button>
+            <button type="button" class="vkey vkey-left" data-action="left" aria-label="左 A">A</button>
+            <button type="button" class="vkey vkey-down" data-action="down" aria-label="下 S">S</button>
+            <button type="button" class="vkey vkey-right" data-action="right" aria-label="右 D">D</button>
+          </div>
+        </nav>
+      </div>
+      <p id="snake-status" class="game-status"></p>
+    </section>
+
+    <!-- Tetris -->
+    <section id="view-tetris" class="view" data-view="tetris">
+      <div class="game-topbar">
+        <button type="button" class="btn-back" data-back-games>&lt; 游戏</button>
+        <div class="hud hud-multi">
+          <div>
+            <span class="hud-label">SCORE</span>
+            <span id="tetris-score" class="hud-value">0</span>
+          </div>
+          <div>
+            <span class="hud-label">LV</span>
+            <span id="tetris-level" class="hud-value">1</span>
+          </div>
+          <div>
+            <span class="hud-label">LINES</span>
+            <span id="tetris-lines" class="hud-value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-play-layout">
+        <div class="canvas-wrap canvas-wrap-tetris">
+          <canvas id="tetris-canvas" width="300" height="600"></canvas>
+          <div id="tetris-game-over" class="game-over-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="tetris-go-title">
+            <div class="game-over-panel">
+              <h3 id="tetris-go-title" class="game-over-title">GAME OVER</h3>
+              <p class="game-over-score">得分 <span id="tetris-final-score">0</span></p>
+              <div class="game-over-actions">
+                <button type="button" class="btn-go btn-retry" data-go="retry" data-game="tetris">重试</button>
+                <button type="button" class="btn-go btn-exit" data-go="exit" data-game="tetris">退出</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav id="tetris-controls" class="game-side-controls hidden" aria-label="俄罗斯方块虚拟键">
+          <div class="dpad dpad-compact">
+            <button type="button" class="vkey vkey-up" data-action="up" aria-label="上 W">W</button>
+            <button type="button" class="vkey vkey-left" data-action="left" aria-label="左 A">A</button>
+            <button type="button" class="vkey vkey-down" data-action="down" aria-label="下 S">S</button>
+            <button type="button" class="vkey vkey-right" data-action="right" aria-label="右 D">D</button>
+          </div>
+          <div class="tetris-action-col">
+            <button type="button" class="vkey vkey-action" data-action="rotate" aria-label="旋转">↻</button>
+            <button type="button" class="vkey vkey-action" data-action="hardDrop" aria-label="硬降">▼</button>
+          </div>
+        </nav>
+      </div>
+      <p id="tetris-status" class="game-status"></p>
+      <p class="game-hint">W 旋转 · S 软降 · Space 硬降 · P 暂停</p>
+    </section>
+
+    <!-- Pac-Man -->
+    <section id="view-pacman" class="view" data-view="pacman">
+      <div class="game-topbar">
+        <button type="button" class="btn-back" data-back-pacman-mode>&lt; 模式</button>
+        <div class="hud hud-multi">
+          <div>
+            <span class="hud-label">MODE</span>
+            <span id="pacman-mode-label" class="hud-value hud-value-sm">—</span>
+          </div>
+          <div>
+            <span class="hud-label">SCORE</span>
+            <span id="pacman-score" class="hud-value">0</span>
+          </div>
+          <div>
+            <span class="hud-label">LIVES</span>
+            <span id="pacman-lives" class="hud-value">3</span>
+          </div>
+          <div>
+            <span class="hud-label">LV</span>
+            <span id="pacman-level" class="hud-value">1</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-play-layout">
+        <div class="canvas-wrap canvas-wrap-pacman">
+          <canvas id="pacman-canvas" width="380" height="420"></canvas>
+          <div id="pacman-game-over" class="game-over-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pacman-go-title">
+            <div class="game-over-panel game-over-panel-pacman">
+              <h3 id="pacman-go-title" class="game-over-title">GAME OVER</h3>
+              <p id="pacman-go-sub" class="game-over-sub">// 协议链路中断</p>
+              <p class="game-over-score">得分 <span id="pacman-final-score">0</span></p>
+              <p class="game-over-score game-over-meta">关卡 <span id="pacman-final-level">1</span></p>
+              <div class="game-over-actions">
+                <button type="button" class="btn-go btn-retry" data-go="retry" data-game="pacman">重试</button>
+                <button type="button" class="btn-go btn-exit" data-go="exit" data-game="pacman">退出</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav id="pacman-controls" class="game-side-controls hidden" aria-label="吃豆人虚拟方向键">
+          <div class="dpad dpad-compact">
+            <button type="button" class="vkey vkey-up" data-action="up">W</button>
+            <button type="button" class="vkey vkey-left" data-action="left">A</button>
+            <button type="button" class="vkey vkey-down" data-action="down">S</button>
+            <button type="button" class="vkey vkey-right" data-action="right">D</button>
+          </div>
+        </nav>
+      </div>
+      <p id="pacman-status" class="game-status"></p>
+      <p class="game-hint">WASD 移动 · 吃光豆子 · 能量豆可追击幽灵</p>
+    </section>
+
+    <!-- Platform mode select -->
+    <section id="view-platform-select" class="view" data-view="platform-select">
+      <header class="mode-header">
+        <button type="button" class="btn-back" data-back-games>&lt; 游戏</button>
+        <h2 class="mode-title">RUN // 模式</h2>
+      </header>
+      <div class="mode-cards mode-cards-scroll">
+        <article class="mode-card" data-platform-mode="classic" tabindex="0">
+          <span class="mode-icon">▶</span>
+          <h3>经典</h3>
+          <p>3 关 · 3 命 · 标准节奏</p>
+        </article>
+        <article class="mode-card" data-platform-mode="turbo" tabindex="0">
+          <span class="mode-icon">⚡</span>
+          <h3>极速</h3>
+          <p>高速移动 · 敌人更敏捷</p>
+        </article>
+        <article class="mode-card" data-platform-mode="zen" tabindex="0">
+          <span class="mode-icon">◇</span>
+          <h3>休闲</h3>
+          <p>5 命 · 慢速敌人</p>
+        </article>
+        <article class="mode-card" data-platform-mode="hard" tabindex="0">
+          <span class="mode-icon">✦</span>
+          <h3>炼狱</h3>
+          <p>4 关 · 2 命 · 高密度敌人</p>
+        </article>
+        <article class="mode-card" data-platform-mode="marathon" tabindex="0">
+          <span class="mode-icon">∞</span>
+          <h3>马拉松</h3>
+          <p>无尽关卡 · 逐关加难</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Platform runner -->
+    <section id="view-platform" class="view" data-view="platform">
+      <div class="game-topbar">
+        <button type="button" class="btn-back" data-back-platform-mode>&lt; 模式</button>
+        <div class="hud hud-multi">
+          <div>
+            <span class="hud-label">MODE</span>
+            <span id="platform-mode-label" class="hud-value hud-value-sm">—</span>
+          </div>
+          <div>
+            <span class="hud-label">STAGE</span>
+            <span id="platform-level" class="hud-value hud-value-sm">1</span>
+          </div>
+          <div>
+            <span class="hud-label">HP</span>
+            <span id="platform-lives" class="hud-value">3</span>
+          </div>
+          <div>
+            <span class="hud-label">SCORE</span>
+            <span id="platform-score" class="hud-value">0</span>
+          </div>
+        </div>
+      </div>
+      <div class="game-play-layout">
+        <div class="canvas-wrap canvas-wrap-platform">
+          <canvas id="platform-canvas" width="480" height="360"></canvas>
+          <div id="platform-game-over" class="game-over-overlay hidden" role="dialog" aria-modal="true">
+            <div class="game-over-panel game-over-panel-platform">
+              <h3 id="platform-game-over-title" class="game-over-title">GAME OVER</h3>
+              <p id="platform-go-sub" class="game-over-sub">// 协议链路中断</p>
+              <p class="game-over-score">得分 <span id="platform-final-score">0</span></p>
+              <p class="game-over-score game-over-meta">关卡 <span id="platform-final-level">1</span></p>
+              <div class="game-over-actions">
+                <button type="button" class="btn-go btn-retry" data-go="retry" data-game="platform">重试</button>
+                <button type="button" class="btn-go btn-exit" data-go="exit" data-game="platform">退出</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav id="platform-controls" class="game-side-controls platform-controls-col hidden" aria-label="横板闯关虚拟键">
+          <div class="dpad dpad-compact">
+            <button type="button" class="vkey vkey-up" data-action="jump">↑</button>
+            <button type="button" class="vkey vkey-left" data-action="left">A</button>
+            <button type="button" class="vkey vkey-down" data-action="down" disabled aria-hidden="true">·</button>
+            <button type="button" class="vkey vkey-right" data-action="right">D</button>
+          </div>
+          <button type="button" class="vkey vkey-fire" data-action="fire" aria-label="射击 W">W</button>
+        </nav>
+      </div>
+      <p id="platform-status" class="game-status"></p>
+      <p class="game-hint">A/D 移动 · 空格跳跃 · W 射击 · 踩头或子弹消灭敌人 · 抵达 ▶ 过关</p>
+    </section>
+  </main>
+
+  <script src="js/holidays.js"></script>
+  <script src="js/clock.js"></script>
+  <script src="js/sfx.js"></script>
+  <script src="js/hub-bg.js"></script>
+  <script src="js/media.js"></script>
+  <script src="js/snake.js"></script>
+  <script src="js/tetris.js"></script>
+  <script src="js/shooter.js"></script>
+  <script src="js/pacman.js"></script>
+  <script src="js/platform.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
