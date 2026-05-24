@@ -1,0 +1,23 @@
+{
+  "music": [
+    "assets/music/在银河中孤独摇摆-知更鸟&HOYO-MiX&Chevy.mp3",
+    "assets/music/昔涟-张韶涵&HOYO-MiX.mp3",
+    "assets/music/耀斑-HOYO-MiX&YMIR.mp3",
+    "assets/music/野火 Wildfire-HOYO-MiX&Jonathan Steingard.mp3",
+    "assets/music/希望有羽毛和翅膀-知更鸟&HOYO-MiX&Chevy.mp3"
+  ],
+  "images": [
+    { "src": "assets/images/_thumb/0.jpg", "thumb": "assets/images/_thumb/0.jpg" },
+    { "src": "assets/images/_thumb/1.jpg", "thumb": "assets/images/_thumb/1.jpg" },
+    { "src": "assets/images/_thumb/2.jpg", "thumb": "assets/images/_thumb/2.jpg" },
+    { "src": "assets/images/_thumb/3.jpg", "thumb": "assets/images/_thumb/3.jpg" },
+    { "src": "assets/images/_thumb/4.jpg", "thumb": "assets/images/_thumb/4.jpg" },
+    { "src": "assets/images/_thumb/5.jpg", "thumb": "assets/images/_thumb/5.jpg" },
+    { "src": "assets/images/_thumb/6.jpg", "thumb": "assets/images/_thumb/6.jpg" },
+    { "src": "assets/images/_thumb/7.jpg", "thumb": "assets/images/_thumb/7.jpg" },
+    { "src": "assets/images/_thumb/8.jpg", "thumb": "assets/images/_thumb/8.jpg" },
+    { "src": "assets/images/_thumb/9.jpg", "thumb": "assets/images/_thumb/9.jpg" },
+    { "src": "assets/images/_thumb/10.jpg", "thumb": "assets/images/_thumb/10.jpg" }
+  ],
+  "videos": []
+}
