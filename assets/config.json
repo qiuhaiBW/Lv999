@@ -5,7 +5,7 @@
     "branch": "主干",
     "sameOrigin": true,
     "musicPath": "assets/music",
-    "imagesPath": "assets/images",
+    "imagesPath": "assets/images/_thumb",
     "videosPath": "assets/video",
     "fallback": {
       "music": [],
