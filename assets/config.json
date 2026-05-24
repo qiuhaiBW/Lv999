@@ -1,0 +1,16 @@
+{
+  "remoteMedia": {
+    "enabled": true,
+    "repo": "qiuhaiBW/Lv999",
+    "branch": "主干",
+    "sameOrigin": true,
+    "musicPath": "assets/music",
+    "imagesPath": "assets/images",
+    "videosPath": "assets/video",
+    "fallback": {
+      "music": [],
+      "images": [],
+      "videos": []
+    }
+  }
+}
